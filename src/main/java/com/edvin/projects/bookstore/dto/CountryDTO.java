@@ -1,4 +1,4 @@
-package com.edvin.projects.bookstore.entity.dao;
+package com.edvin.projects.bookstore.dto;
 
 import java.io.Serializable;
 

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edvin.projects.bookstore.entity.dao.AuthorDTO;
-import com.edvin.projects.bookstore.entity.service.AuthorService;
+import com.edvin.projects.bookstore.dto.AuthorDTO;
+import com.edvin.projects.bookstore.service.AuthorService;
 
 @RestController
 @RequestMapping("/api/authors")

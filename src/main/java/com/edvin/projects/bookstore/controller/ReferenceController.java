@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edvin.projects.bookstore.entity.dao.CountryDTO;
-import com.edvin.projects.bookstore.entity.service.CountryService; 
+import com.edvin.projects.bookstore.dto.CountryDTO;
+import com.edvin.projects.bookstore.service.CountryService;
 
 import jakarta.websocket.server.PathParam;
 

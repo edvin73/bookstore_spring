@@ -1,4 +1,4 @@
-package com.edvin.projects.bookstore.entity.service;
+package com.edvin.projects.bookstore.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.edvin.projects.bookstore.entity.Author;
 import com.edvin.projects.bookstore.entity.Country;
-import com.edvin.projects.bookstore.entity.dao.AuthorDTO;
-import com.edvin.projects.bookstore.entity.util.ReferencesMapper;
+import com.edvin.projects.bookstore.dto.AuthorDTO;
+import com.edvin.projects.bookstore.util.ReferencesMapper;
 import com.edvin.projects.bookstore.repository.IAuthor;
 
 @Service

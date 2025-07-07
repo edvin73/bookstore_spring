@@ -1,9 +1,9 @@
-package com.edvin.projects.bookstore.entity.util;
+package com.edvin.projects.bookstore.util;
 
+import com.edvin.projects.bookstore.dto.AuthorDTO;
+import com.edvin.projects.bookstore.dto.CountryDTO;
 import com.edvin.projects.bookstore.entity.Author;
 import com.edvin.projects.bookstore.entity.Country;
-import com.edvin.projects.bookstore.entity.dao.AuthorDTO;
-import com.edvin.projects.bookstore.entity.dao.CountryDTO;
 
 public class ReferencesMapper {
 	
