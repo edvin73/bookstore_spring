@@ -22,12 +22,32 @@ This project is a comprehensive bookstore management system that provides REST A
 The application follows a layered architecture pattern:
 
 ```
-├── controller/          # REST API endpoints
-├── entity/             # JPA entities and data models
-│   ├── dao/           # Data Transfer Objects (DTOs)
-│   └── service/       # Business logic services
-├── repository/         # Data access layer (JPA repositories)
-└── util/              # Utility classes and mappers
+src/
+└── main/
+    ├── java/
+    │   └── com/edvin/projects/bookstore/
+    │       ├── BookstoreSpringApplication.java  # Main application class
+    │       ├── controller/                      # REST API endpoints
+    │       │   ├── AuthorController.java
+    │       │   └── ReferenceController.java
+    │       ├── dto/                            # Data Transfer Objects
+    │       │   ├── AuthorDTO.java
+    │       │   └── CountryDTO.java
+    │       ├── entity/                         # JPA entities
+    │       │   ├── Author.java
+    │       │   └── Country.java
+    │       ├── repository/                     # Data access layer
+    │       │   ├── IAuthor.java
+    │       │   └── ICountry.java
+    │       ├── service/                        # Business logic
+    │       │   ├── AuthorService.java
+    │       │   └── CountryService.java
+    │       └── util/                           # Utility classes
+    │           └── ReferencesMapper.java
+    └── resources/
+        ├── application.yml                     # Application configuration
+        ├── static/                            # Static web assets
+        └── templates/                         # Template files
 ```
 
 ## 🛠️ Technology Stack
@@ -114,14 +134,17 @@ The application will start on `http://localhost:8065`
 
 ## 📚 API Endpoints
 
-### Authors
+### Authors (`/api/authors`)
 - `GET /api/authors/` - Get all authors
 - `GET /api/authors/{id}` - Get author by ID
 - `POST /api/authors/` - Create a new author
 - `DELETE /api/authors/{id}` - Delete an author
 
-### Reference Data
-Additional endpoints for managing reference data like countries.
+### Countries (`/api/references`)
+- `GET /api/references/countries` - Get all countries
+- `GET /api/references/countries/{id}` - Get country by ID
+- `POST /api/references/countries` - Create a new country
+- `DELETE /api/references/countries/{id}` - Delete a country
 
 ## 🏃‍♂️ Running Tests
 
