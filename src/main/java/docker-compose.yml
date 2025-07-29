@@ -1,0 +1,34 @@
+
+services:
+	app:
+		build: .
+			ports: 
+				- "8080:8080"
+		depends-on:
+			- database
+		
+		
+	database:
+
+	# Docker Hub image (feel free to change the tag "latest" to any other available one)
+	    image: gvenzl/oracle-xe:21
+	
+	    # Provide passwords and other environment variables to container
+	    environment:
+	      ORACLE_DATABASE: XE
+	      ORACLE_PASSWORD: oracle
+	      ORACLE_RANDOM_PASSWORD: true
+	      APP_USER: devdb
+	      APP_USER_PASSWORD: oracle
+	      
+	    # Disk space for the Oracle database
+	    volumes:
+	      - ./oracle-data:/opt/oracle/oradata
+	      - ./oracle-logs:/opt/oracle/logs 
+	
+	
+	    # Forward Oracle port
+	    ports:
+	      - 1521:1521
+		
+			

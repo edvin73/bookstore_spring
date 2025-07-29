@@ -3,10 +3,16 @@ package com.edvin.projects.bookstore.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.edvin.projects.bookstore.dto.CountryDTO;
-import com.edvin.projects.bookstore.entity.Country; 
+import com.edvin.projects.bookstore.entity.Country;
+import com.edvin.projects.bookstore.handler.ResourceNotFoundException;
 import com.edvin.projects.bookstore.repository.ICountry;
 import com.edvin.projects.bookstore.util.ReferencesMapper;
 import com.edvin.projects.bookstore.util.ReferencesMapper;
@@ -14,10 +20,14 @@ import com.edvin.projects.bookstore.util.ReferencesMapper;
 @Service
 public class CountryService {
 	
+	private Logger logger = LoggerFactory.getLogger(CountryService.class);
+	
 	private final ICountry countryRepository;
+	 
 	
 	public CountryService(ICountry countryRepository) {
 		this.countryRepository = countryRepository;
+		  
 	}
 	
 	/**
@@ -33,7 +43,7 @@ public class CountryService {
 			
 			return countryRepository.findById(id)
 					.map(country -> ReferencesMapper.mapCountryToDTO(country))
-					.orElse(null);
+					.orElseThrow( () -> new ResourceNotFoundException("Country not found with ID: " + id));
 	 }
 	 
 	 /**
@@ -41,6 +51,9 @@ public class CountryService {
 	  * Retrieves a list of all countries order by name.
 	  */
 		public List<CountryDTO> getAllCountries() {
+			
+			
+			
 			return countryRepository.findAll().stream()
 					.map(country -> ReferencesMapper.mapCountryToDTO(country))
 					.sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName())).toList();
@@ -56,7 +69,8 @@ public class CountryService {
 
 			return countryRepository.findAll().stream().filter(country -> country.getCode().equalsIgnoreCase(code))
 					.map(country -> ReferencesMapper.mapCountryToDTO(country))
-					.findFirst().orElse(null);
+					.findFirst()
+					.orElseThrow( () -> new ResourceNotFoundException("Country not found with code: " + code));
 		}
 		
 		/**
@@ -95,7 +109,8 @@ public class CountryService {
 				existingCountry = countryRepository.save(existingCountry);
 
 				return ReferencesMapper.mapCountryToDTO(existingCountry);
-			}).orElse(null);
+			})
+			.orElseThrow( () -> new ResourceNotFoundException("Country not found with ID: " + countryDAO.getId()));
 		}
 		
 		/**
@@ -108,7 +123,7 @@ public class CountryService {
 			}
 
 			if (!countryRepository.existsById(id)) {
-				return false;
+				throw new ResourceNotFoundException("Country not found with ID: " + id);
 			}
 
 			countryRepository.deleteById(id);

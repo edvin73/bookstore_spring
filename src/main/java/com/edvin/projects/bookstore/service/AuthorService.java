@@ -15,10 +15,11 @@ import com.edvin.projects.bookstore.repository.IAuthor;
 @Service
 public class AuthorService {
 	
-	private final IAuthor authorRepository;
+	private final IAuthor authorRepository; 
 	
 	public AuthorService(IAuthor authorRepository) {
-		this.authorRepository = authorRepository;
+		this.authorRepository = authorRepository; 			
+		
 	}
 	
 	//getAllAuthors

@@ -38,7 +38,9 @@ public class ReferenceController {
 	@PostMapping("/countries")
 	public CountryDTO createCountr(@RequestBody CountryDTO countryDAO) {
 		if (countryDAO == null || countryDAO.getCode() == null || countryDAO.getName() == null) {
-			return null; // Handle invalid input
+			// Handle invalid input
+			
+			return null; 
 		}
 
 		return countryService.createCountry(countryDAO);
