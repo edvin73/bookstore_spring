@@ -57,10 +57,13 @@ public class OracleDbChecker implements DBChecker {
 			
 			logger.error("Database check failed: {}", e.getMessage());
 			dbUp = false; // DB is not available
-		} finally {
+		} catch (Exception e) {
 			
-			return dbUp;
+			logger.error("Unexpected error during database check: {}", e.getMessage());
+			dbUp = false; // DB is not available
 		}
+		
+		return dbUp;
 	}
 	
 	

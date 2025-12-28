@@ -27,7 +27,10 @@ public class ReferenceController {
 	
 	@GetMapping("/countries")
 	public List<CountryDTO> getAllCountries() {
-		return countryService.getAllCountries();
+		return countryService.getAllCountries()
+					.stream()
+					.sorted((a, b) -> a.getName().compareToIgnoreCase(b.getName()))
+                    .toList();
 	}
 	
 	@GetMapping("/countries/{id}")

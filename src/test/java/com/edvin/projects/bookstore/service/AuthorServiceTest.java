@@ -5,12 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.edvin.projects.bookstore.dto.AuthorDTO;
 import com.edvin.projects.bookstore.entity.Author;
@@ -18,15 +25,52 @@ import com.edvin.projects.bookstore.repository.IAuthor;
 
 
 class AuthorServiceTest {
-
+	
+	@Mock
 	private IAuthor authorRepository;
+	
+	@InjectMocks
 	private AuthorService authorService;
-
-	@BeforeEach
-	void setUp() {
-		authorRepository = mock(IAuthor.class);
-		authorService = new AuthorService(authorRepository);
+	
+	public AuthorServiceTest() {
+	    MockitoAnnotations.openMocks(this);
 	}
+
+//	@BeforeEach
+//	void setUp() {
+//		authorRepository = mock(IAuthor.class);
+//		authorService = new AuthorService(authorRepository);
+//	}
+		
+	 @Test // Test for getAllAuthors method
+	 void testGetAllAuthors() {
+	        // Arrange
+	        var author1 = new Author();
+	        author1.setId(1);
+	        author1.setFirstName("William");
+	        author1.setLastName("Shakespeare");
+
+	        var author2 = new Author();
+	        author2.setId(2);
+	        author2.setFirstName("Jane");
+	        author2.setLastName("Austen");
+
+	        when(authorRepository.findAll()).thenReturn(Arrays.asList(author1, author2));
+
+	        var expectedAuthorDTO1 = new AuthorDTO(1, "William", "Shakespeare", null, null, null, null, null);
+	        var expectedAuthorDTO2 = new AuthorDTO(2, "Jane", "Austen", null, null, null, null, null);
+
+	        // Act
+	        List<AuthorDTO> result = authorService.getAllAuthors();
+
+	        // Assert
+	        assertNotNull(result);
+	        assertEquals(2, result.size());
+	        assertEquals(expectedAuthorDTO1.firstName(), result.get(0).firstName());
+	        assertEquals(expectedAuthorDTO2.firstName(), result.get(1).firstName());
+
+	        verify(authorRepository, times(1)).findAll();
+	    }
 
 	@Test
 	void testGetAuthorById_AuthorExists() {

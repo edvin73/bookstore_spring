@@ -19,7 +19,7 @@ public class DbMonitorService {
 		this.dbChecker = dbChecker;
 	}
 	
-	@Scheduled(fixedRate = 600000) // Check every 10 minutes)
+	@Scheduled(fixedRate = 3600000) // Check every hour
 	public void  isDbAvailable() {
 		boolean isUp =  dbChecker.isDbAvailable();
 		
